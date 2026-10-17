@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>زفاف آية ومصطفى</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+    
+    <!-- FontAwesome Icons -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    
+    <!-- Google Fonts (Amiri, Cairo, Tajawal) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cairo:wght@300;400;600;700;900&family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        rosewine: {
+                            950: '#14060E',
+                            900: '#1F0B16',
+                            800: '#2E1222',
+                            700: '#421C32',
+                            600: '#5C2847',
+                        },
+                        rosegold: {
+                            100: '#FFF0F3',
+                            200: '#FFD6E0',
+                            300: '#F4C2C2',
+                            400: '#E8A598',
+                            500: '#B76E79', /* Signature Rose Gold */
+                            600: '#9B535F',
+                            700: '#7D3B47',
+                        },
+                        pearl: '#FAF0F2',
+                        ivory: '#FFFDF9'
+                    },
+                    fontFamily: {
+                        amiri: ['Amiri', 'serif'],
+                        cairo: ['Cairo', 'sans-serif'],
+                        tajawal: ['Tajawal', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Base typography & Smooth Scroll */
+        html {
+            color-scheme: dark;
+            scroll-behavior: smooth;
+            font-family: 'Tajawal', sans-serif;
+            background-color: #14060E;
+            color: #FAF0F2;
+        }
+
+        body { background-color: #14060E; color: #FAF0F2; }
+
+        /* Rose Gold Gradient Text */
+        .rosegold-text-gradient {
+            background: linear-gradient(135deg, #FFE3EA 0%, #E8A598 25%, #B76E79 50%, #FAD0C4 75%, #E8A598 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Metallic Rose Gold Borders & Accents */
+        .rosegold-gradient-bg {
+            background: linear-gradient(135deg, #E8A598 0%, #F4C2C2 50%, #B76E79 100%);
+        }
+
+        .rosegold-card-border {
+            border: 1px solid rgba(232, 165, 152, 0.35);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), inset 0 0 15px rgba(232, 165, 152, 0.08);
+        }
+
+        .rosegold-glow {
+            box-shadow: 0 0 25px rgba(232, 165, 152, 0.35);
+        }
+
+        /* Glassmorphism Effect */
+        .glass-panel {
+            background: rgba(46, 18, 34, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(232, 165, 152, 0.25);
+        }
+
+        /* Background Particle Canvas */
+        #bgCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Envelope CSS Animation */
+        .envelope-wrapper {
+            perspective: 1000px;
+        }
+
+        .envelope {
+            position: relative;
+            width: 320px;
+            height: 220px;
+            background: #2E1222;
+            border-radius: 12px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6), 0 0 25px rgba(232, 165, 152, 0.25);
+            border: 2px solid #E8A598;
+            transition: transform 0.8s ease;
+        }
+
+        @media (min-width: 640px) {
+            .envelope {
+                width: 440px;
+                height: 290px;
+            }
+        }
+
+        .envelope-flap {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 0;
+            border-left: 160px solid transparent;
+            border-right: 160px solid transparent;
+            border-top: 130px solid #421C32;
+            transform-origin: top;
+            transition: transform 0.8s ease;
+            z-index: 3;
+            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3));
+        }
+
+        @media (min-width: 640px) {
+            .envelope-flap {
+                border-left-width: 220px;
+                border-right-width: 220px;
+                border-top-width: 160px;
+            }
+        }
+
+        .envelope.open .envelope-flap {
+            transform: rotateX(180deg);
+            z-index: 1;
+        }
+
+        /* Rose Gold Wax Seal Button */
+        .wax-seal {
+            background: radial-gradient(circle, #FFE3EA 0%, #E8A598 60%, #B76E79 100%);
+            box-shadow: 0 0 20px rgba(232, 165, 152, 0.6), inset 0 0 8px rgba(0,0,0,0.25);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .wax-seal:hover {
+            transform: scale(1.1) rotate(6deg);
+        }
+
+        /* Scrollbar Styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #14060E;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #B76E79;
+            border-radius: 4px;
+        }
+
+        /* Printable Ticket CSS */
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+            #printableTicketModal, #printableTicketModal * {
+                visibility: visible;
+            }
+            #printableTicketModal {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                background: white;
+                color: black;
+            }
+        }
+    </style>
+</head>
+<body>
+<div id="app" dir="rtl" lang="ar" class="overflow-x-hidden text-pearl bg-rosewine-950 relative">
+
+    <!-- Interactive Background Falling Rose Petals Canvas -->
+    <canvas id="bgCanvas"></canvas>
+
+    <!-- Floating Audio & Admin Action Bar -->
+    <div class="fixed top-5 left-5 right-5 z-40 flex justify-between items-center pointer-events-none">
+        <!-- Audio Control Toggle -->
+        <button id="musicToggleBtn" onclick="toggleAudio()" class="pointer-events-auto flex items-center gap-2 glass-panel px-4 py-2 rounded-full border border-rosegold-400/40 text-rosegold-300 hover:bg-rosegold-500/20 transition shadow-lg text-sm font-semibold">
+            <span id="musicIcon"><i class="fas fa-music animate-pulse"></i></span>
+            <span id="musicText">الموسيقى: خافتة</span>
+        </button>
+
+        <!-- Edit/Customization Modal Trigger -->
+        <button onclick="openAdminModal()" class="pointer-events-auto flex items-center gap-2 glass-panel px-4 py-2 rounded-full border border-rosegold-400/40 text-rosegold-300 hover:bg-rosegold-500/20 transition shadow-lg text-sm font-semibold">
+            <i class="fas fa-sliders-h"></i>
+            <span class="hidden sm:inline">تعديل بيانات الدعوة والصور</span>
+        </button>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- 1. COVER / ENVELOPE OVERLAY SECTION -->
+    <!-- ========================================== -->
+    <div id="envelopeOverlay" class="fixed inset-0 z-50 flex flex-col items-center justify-center bg-rosewine-950 px-4 transition-opacity duration-1000">
+        <!-- Floral Decorative Header -->
+        <div class="text-center mb-8 max-w-lg animate-fade-in">
+            <div class="text-rosegold-400 text-3xl mb-3">
+                <i class="fas fa-spa"></i>
+            </div>
+            <p class="font-amiri text-lg sm:text-xl text-rosegold-300 italic px-4 leading-relaxed">
+                "وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا لِّتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً"
+            </p>
+            <div class="w-24 h-0.5 mx-auto bg-gradient-to-r from-transparent via-rosegold-400 to-transparent my-4"></div>
+            <h2 class="font-cairo text-2xl sm:text-3xl text-pearl font-light">دعوة زفاف إلكترونية فاخرة</h2>
+        </div>
+
+        <!-- 3D Interactive Envelope -->
+        <div class="envelope-wrapper my-4">
+            <div id="envelope" class="envelope flex flex-col items-center justify-center p-6 text-center cursor-pointer" onclick="openInvitationEnvelope()">
+                <!-- Envelope Flap -->
+                <div class="envelope-flap"></div>
+
+                <!-- Interior Invitation Preview Badge -->
+                <div class="z-10 flex flex-col items-center space-y-3">
+                    <span class="text-xs uppercase tracking-widest text-rosegold-300 font-semibold">دعوة خاصة</span>
+                    <h1 class="font-amiri text-3xl sm:text-4xl font-bold rosegold-text-gradient" id="envelopeGroomBride">آية & مصطفى</h1>
+                    <p class="text-xs text-rosegold-200">انقري على الختم الوردي لفتح الدعوة</p>
+                    
+                    <!-- Wax Seal Button -->
+                    <div id="waxSeal" class="wax-seal w-16 h-16 rounded-full flex items-center justify-center text-rosewine-950 cursor-pointer border-2 border-rosegold-200 mt-2 shadow-xl">
+                        <i class="fas fa-heart text-xl text-rosewine-900"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <p class="mt-8 text-xs text-rosegold-300/80 tracking-wide font-light">تفضلي بفتح الرسالة لحضور ليلتنا المباركة</p>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- MAIN INVITATION CONTENT (Revealed after Envelope Open) -->
+    <!-- ========================================== -->
+    <main id="mainContent" class="opacity-0 transition-opacity duration-1000 min-h-screen relative z-10 pb-20">
+
+        <!-- HERO SECTION -->
+        <section class="min-h-screen flex flex-col items-center justify-center text-center px-4 pt-20 pb-12 relative overflow-hidden">
+            <!-- Decorative Framed Header -->
+            <div class="relative z-10 max-w-3xl w-full glass-panel p-8 sm:p-14 rounded-3xl rosegold-card-border">
+                <div class="text-rosegold-400 text-3xl mb-4">
+                    <i class="fas fa-gem"></i>
+                </div>
+
+                <p class="font-amiri text-rosegold-300 text-lg sm:text-2xl mb-2">بسم الله الرحمن الرحيم</p>
+                <p class="text-pearl/90 text-sm sm:text-base mb-6 font-light">يتشرف العروسان وعائلتاهما بدعوتكم لحضور حفل الزفاف الميمون</p>
+
+                <!-- Featured Bride & Groom Portrait Frame -->
+                <div class="my-6 mx-auto w-44 h-44 sm:w-56 sm:h-56 rounded-full overflow-hidden border-4 border-rosegold-400 p-1.5 shadow-2xl rosegold-glow">
+                    <img src="img/couple.jpg" alt="آية ومصطفى" class="w-full h-full object-cover rounded-full hover:scale-105 transition duration-500 cursor-pointer" onclick="openLightbox('img/couple.jpg', 'آية ومصطفى')">
+                </div>
+
+                <!-- Names with Calligraphy Font -->
+                <div class="my-6 py-4 border-y border-rosegold-400/30">
+                    <h1 id="displayGroomBride" class="font-amiri text-4xl sm:text-6xl font-bold rosegold-text-gradient leading-tight tracking-wide">
+                        آية & مصطفى
+                    </h1>
+                </div>
+
+                <!-- Simplified Date & General Reception Time -->
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-8 text-pearl text-base sm:text-lg font-medium mt-6">
+                    <div class="flex items-center gap-2">
+                        <i class="far fa-calendar-alt text-rosegold-400"></i>
+                        <span id="displayDayDate">السبت، 24 أكتوبر 2026</span>
+                    </div>
+                    <span class="text-rosegold-400 hidden sm:inline">•</span>
+                    <div class="flex items-center gap-2">
+                        <i class="far fa-clock text-rosegold-400"></i>
+                        <span id="displayReceptionTime">موعد الاستقبال: الساعة 08:00 مساءً</span>
+                    </div>
+                </div>
+
+                <!-- Quranic Verse Footer in Hero -->
+                <div class="mt-8 pt-6 border-t border-rosegold-400/20">
+                    <p id="displayVerse" class="font-amiri text-rosegold-300/90 text-base sm:text-lg italic">
+                        "وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا لِّتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً"
+                    </p>
+                </div>
+            </div>
+
+            <!-- Down Arrow Animation -->
+            <a href="#countdownSection" class="mt-12 text-rosegold-400 animate-bounce text-2xl">
+                <i class="fas fa-chevron-down"></i>
+            </a>
+        </section>
+
+        <!-- COUNTDOWN TIMER SECTION -->
+        <section id="countdownSection" class="max-w-4xl mx-auto px-4 py-12 text-center">
+            <h2 class="font-cairo text-2xl sm:text-3xl text-rosegold-300 mb-2 font-bold">العد التنازلي لحفل الزفاف</h2>
+            <p class="text-pearl/80 text-sm mb-8">نترقب بشوق اللحظة السعيدة لمشاركتكم فرحة آية ومصطفى</p>
+
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6">
+                <!-- Days -->
+                <div class="glass-panel p-5 rounded-2xl rosegold-card-border flex flex-col items-center justify-center">
+                    <span id="timerDays" class="font-cairo text-3xl sm:text-5xl font-black rosegold-text-gradient mb-1">00</span>
+                    <span class="text-xs sm:text-sm text-pearl/80 font-semibold">أيام</span>
+                </div>
+                <!-- Hours -->
+                <div class="glass-panel p-5 rounded-2xl rosegold-card-border flex flex-col items-center justify-center">
+                    <span id="timerHours" class="font-cairo text-3xl sm:text-5xl font-black rosegold-text-gradient mb-1">00</span>
+                    <span class="text-xs sm:text-sm text-pearl/80 font-semibold">ساعات</span>
+                </div>
+                <!-- Minutes -->
+                <div class="glass-panel p-5 rounded-2xl rosegold-card-border flex flex-col items-center justify-center">
+                    <span id="timerMinutes" class="font-cairo text-3xl sm:text-5xl font-black rosegold-text-gradient mb-1">00</span>
+                    <span class="text-xs sm:text-sm text-pearl/80 font-semibold">دقائق</span>
+                </div>
+                <!-- Seconds -->
+                <div class="glass-panel p-5 rounded-2xl rosegold-card-border flex flex-col items-center justify-center">
+                    <span id="timerSeconds" class="font-cairo text-3xl sm:text-5xl font-black rosegold-text-gradient mb-1">00</span>
+                    <span class="text-xs sm:text-sm text-pearl/80 font-semibold">ثواني</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- SPECIAL MOMENTS TIMELINE / FEATURED CARDS SECTION -->
+        <section class="max-w-5xl mx-auto px-4 py-12">
+            <div class="text-center mb-10">
+                <div class="text-rosegold-400 text-3xl mb-2"><i class="fas fa-heart text-2xl"></i></div>
+                <h2 class="font-cairo text-2xl sm:text-3xl text-rosegold-300 font-bold mb-2">لحظاتنا المضيئة</h2>
+                <p class="text-pearl/80 text-sm">محطات مليئة بالمحبة والتجهيز لليلتنا الميمونة</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Card 1 -->
+                <div class="glass-panel rounded-3xl p-5 rosegold-card-border text-center flex flex-col items-center hover:translate-y-[-4px] transition duration-300">
+                    <div class="w-full h-64 rounded-2xl overflow-hidden mb-4 border border-rosegold-400/30">
+                        <img src="img/dress.jpg" alt="فستان الزفاف الوردي" class="w-full h-full object-cover hover:scale-105 transition duration-500 cursor-pointer" onclick="openLightbox('img/dress.jpg', 'أناقة الفستان الوردي وحشمة اللؤلؤ للعروس آية')">
+                    </div>
+                    <h3 class="font-amiri text-xl font-bold text-rosegold-300 mb-1">طلة الفستان الوردي</h3>
+                    <p class="text-xs text-pearl/80 leading-relaxed">أناقة الورد وحشمة اللؤلؤ تتجلى في تحضيرات ليلتنا السعيدة.</p>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="glass-panel rounded-3xl p-5 rosegold-card-border text-center flex flex-col items-center hover:translate-y-[-4px] transition duration-300">
+                    <div class="w-full h-64 rounded-2xl overflow-hidden mb-4 border border-rosegold-400/30">
+                        <img src="img/couple.jpg" alt="لمسة المودة والوفاء" class="w-full h-full object-cover hover:scale-105 transition duration-500 cursor-pointer" onclick="openLightbox('img/couple.jpg', 'لمسة الوفاء والمودة بين العروسين آية ومصطفى')">
+                    </div>
+                    <h3 class="font-amiri text-xl font-bold text-rosegold-300 mb-1">لمسة المودة</h3>
+                    <p class="text-xs text-pearl/80 leading-relaxed">احترام وتقدير يربط القلوب في أبهى صور المحبة والوفاء.</p>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="glass-panel rounded-3xl p-5 rosegold-card-border text-center flex flex-col items-center hover:translate-y-[-4px] transition duration-300">
+                    <div class="w-full h-64 rounded-2xl overflow-hidden mb-4 border border-rosegold-400/30">
+                        <img src="img/ring.jpg" alt="خاتم الزفاف وعهد العمر" class="w-full h-full object-cover hover:scale-105 transition duration-500 cursor-pointer" onclick="openLightbox('img/ring.jpg', 'خاتم الزفاف والميثاق المبارك بين العروسين')">
+                    </div>
+                    <h3 class="font-amiri text-xl font-bold text-rosegold-300 mb-1">عهد العمر</h3>
+                    <p class="text-xs text-pearl/80 leading-relaxed">ميثاق غليظ ينبض بالحب والسكينة ليجمع آية ومصطفى للأبد.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- EVENT DETAILS CARD (Simplified - General Reception Only) -->
+        <section class="max-w-3xl mx-auto px-4 py-12">
+            <div class="glass-panel rounded-3xl p-8 sm:p-10 rosegold-card-border text-center relative overflow-hidden">
+                <div class="text-rosegold-400 text-3xl mb-3">
+                    <i class="fas fa-heart text-2xl"></i>
+                </div>
+                <h2 class="font-cairo text-2xl sm:text-3xl font-bold text-rosegold-300 mb-2">تفاصيل المناسبة</h2>
+                <p class="text-pearl text-base sm:text-lg mb-6 leading-relaxed">
+                    يسعدنا حضوركم ومشاركتنا أجمل اللحظات في ليلة زفافنا المباركة. حضوركم يكتمل به أنسنا ويسعد به زفافنا.
+                </p>
+
+                <div class="inline-flex items-center gap-3 bg-rosewine-900/80 px-6 py-3 rounded-2xl border border-rosegold-400/30 text-rosegold-300 font-semibold text-sm sm:text-base">
+                    <i class="far fa-clock"></i>
+                    <span id="displayCardTime">بداية استقبال الضيوف: الساعة 08:00 مساءً</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- RSVP & PERSONALIZED TICKET GENERATOR SECTION -->
+        <section class="max-w-3xl mx-auto px-4 py-12">
+            <div class="glass-panel p-8 sm:p-12 rounded-3xl rosegold-card-border">
+                <div class="text-center mb-8">
+                    <div class="text-rosegold-400 text-3xl mb-2"><i class="fas fa-envelope-open-text"></i></div>
+                    <h2 class="font-cairo text-2xl sm:text-3xl text-rosegold-300 font-bold mb-1">تأكيد الحضور واستخراج بطاقة الدخول</h2>
+                    <p class="text-pearl/80 text-sm">يسعدنا تأكيد حضوركم لترتيب أسباب الراحة والضيافة لكم</p>
+                </div>
+
+                <form id="rsvpForm" onsubmit="handleRSVPSubmit(event)" class="space-y-5">
+                    <div>
+                        <label class="block text-rosegold-200 text-sm mb-2 font-semibold">اسم الضيف / الضيفة الكريم/ة *</label>
+                        <input type="text" id="guestNameInput" required placeholder="أدخلي اسمك الكامل..." class="w-full bg-rosewine-950/80 border border-rosegold-400/40 rounded-xl px-4 py-3 text-pearl placeholder-rosegold-300/40 focus:outline-none focus:border-rosegold-400 transition">
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-rosegold-200 text-sm mb-2 font-semibold">حالة الحضور *</label>
+                            <select id="attendanceInput" required class="w-full bg-rosewine-950/80 border border-rosegold-400/40 rounded-xl px-4 py-3 text-pearl focus:outline-none focus:border-rosegold-400 transition">
+                                <option value="يشرفني الحضور">يشرفني الحضور وبكل سرور</option>
+                                <option value="أعتذر عن الحضور">أعتذر عن الحضور لظروف</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-rosegold-200 text-sm mb-2 font-semibold">عدد المرافقين</label>
+                            <select id="guestCountInput" class="w-full bg-rosewine-950/80 border border-rosegold-400/40 rounded-xl px-4 py-3 text-pearl focus:outline-none focus:border-rosegold-400 transition">
+                                <option value="1">شخص واحد فقط</option>
+                                <option value="2">شخصان (2)</option>
+                                <option value="3">3 أشخاص</option>
+                                <option value="4">4 أشخاص</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="w-full rosegold-gradient-bg text-rosewine-950 font-black py-4 rounded-xl hover:opacity-95 transition shadow-xl text-base flex items-center justify-center gap-2">
+                        <i class="fas fa-ticket-alt"></i>
+                        <span>تأكيد الحضور واستخراج التذكرة</span>
+                    </button>
+                </form>
+            </div>
+        </section>
+
+        <!-- PHOTO GALLERY SECTION -->
+        <section class="max-w-5xl mx-auto px-4 py-12">
+            <div class="text-center mb-8">
+                <h2 class="font-cairo text-2xl sm:text-3xl text-rosegold-300 font-bold mb-2">معرض الصور التذكارية</h2>
+                <p class="text-pearl/80 text-sm mb-4">لمحات أنثوية دافئة من ذكريات وتجهيزات الزفاف</p>
+                <button onclick="openAdminModal()" class="inline-flex items-center gap-2 bg-rosewine-800/80 border border-rosegold-400/40 text-rosegold-300 px-4 py-2 rounded-xl text-xs hover:bg-rosewine-700 transition">
+                    <i class="fas fa-camera"></i>
+                    <span>تغيير صور المعرض وإضافة صوركِ الخاصة</span>
+                </button>
+            </div>
+
+            <!-- Dynamic Gallery Grid Container -->
+            <div id="galleryContainer" class="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                <!-- Gallery images rendered via JS -->
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer class="text-center py-8 text-xs text-rosegold-300/60 border-t border-rosegold-400/20">
+            <p class="mb-2">دعوة زفاف إلكترونية تفاعلية فاخرة</p>
+            <p id="footerBrideGroomNames" class="font-amiri text-rosegold-300 text-base">آية & مصطفى - 2026</p>
+        </footer>
+
+    </main>
+
+    <!-- ========================================== -->
+    <!-- MODAL 1: PERSONALIZED ENTRANCE TICKET MODAL -->
+    <!-- ========================================== -->
+    <div id="ticketModal" class="fixed inset-0 z-50 bg-rosewine-950/90 backdrop-blur-md hidden flex items-center justify-center p-4">
+        <div class="relative max-w-md w-full glass-panel p-6 sm:p-8 rounded-3xl rosegold-card-border text-center" id="printableTicketModal">
+            <!-- Close Button -->
+            <button onclick="closeTicketModal()" class="absolute top-4 left-4 text-rosegold-300 hover:text-pearl text-xl">
+                <i class="fas fa-times"></i>
+            </button>
+
+            <!-- Ticket Header Motif -->
+            <div class="text-rosegold-400 text-3xl mb-1"><i class="fas fa-crown"></i></div>
+            <span class="text-[10px] uppercase tracking-widest text-rosegold-300 font-bold">بطاقة دخول حفل الزفاف VIP</span>
+            <h3 class="font-amiri text-2xl font-bold rosegold-text-gradient mt-1" id="ticketCoupleNames">آية & مصطفى</h3>
+
+            <div class="my-4 p-4 bg-rosewine-950/90 rounded-2xl border border-rosegold-400/30 text-right space-y-2 text-sm">
+                <div class="flex justify-between border-b border-rosegold-400/20 pb-2">
+                    <span class="text-pearl/70">اسم الضيف:</span>
+                    <span id="ticketGuestName" class="font-bold text-rosegold-300">دعاء المحمد</span>
+                </div>
+                <div class="flex justify-between border-b border-rosegold-400/20 pb-2">
+                    <span class="text-pearl/70">حالة الحضور:</span>
+                    <span id="ticketStatus" class="font-bold text-emerald-300">مؤكد</span>
+                </div>
+                <div class="flex justify-between border-b border-rosegold-400/20 pb-2">
+                    <span class="text-pearl/70">عدد المدعوين:</span>
+                    <span id="ticketGuestCount" class="font-bold text-pearl">1</span>
+                </div>
+                <div class="flex justify-between">
+                    <span class="text-pearl/70">رمز التذكرة الفريد:</span>
+                    <span id="ticketCode" class="font-mono text-rosegold-300 font-bold">#WED-88219</span>
+                </div>
+            </div>
+
+            <!-- Generated QR Code Image -->
+            <div class="flex flex-col items-center justify-center my-4 p-3 bg-white rounded-2xl w-36 h-36 mx-auto shadow-inner">
+                <div id="ticketQR" class="w-full h-full flex items-center justify-center"></div>
+            </div>
+            <p class="text-[11px] text-pearl/80 mb-6">يرجى إبراز الشفرة للتحقق عند بوابات الدخول</p>
+
+            <div class="flex gap-3">
+                <button onclick="closeTicketModal()" class="w-full bg-rosewine-800 hover:bg-rosewine-700 border border-rosegold-400/40 text-pearl font-bold py-2.5 rounded-xl text-sm">
+                    إغلاق
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- MODAL 2: LIGHTBOX PHOTO PREVIEW MODAL -->
+    <!-- ========================================== -->
+    <div id="lightboxModal" class="fixed inset-0 z-50 bg-rosewine-950/95 backdrop-blur-md hidden flex flex-col items-center justify-center p-4" onclick="closeLightbox()">
+        <div class="relative max-w-3xl w-full flex flex-col items-center">
+            <button class="absolute -top-12 left-0 text-rosegold-300 text-3xl">
+                <i class="fas fa-times"></i>
+            </button>
+            <img id="lightboxImage" src="" alt="صورة مكبرة" class="max-h-[80vh] rounded-2xl rosegold-card-border object-contain shadow-2xl">
+            <p id="lightboxCaption" class="mt-4 text-rosegold-300 font-semibold text-center text-sm sm:text-base"></p>
+        </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- MODAL 3: ADMIN CUSTOMIZATION PANEL MODAL -->
+    <!-- ========================================== -->
+    <div id="adminModal" class="fixed inset-0 z-50 bg-rosewine-950/90 backdrop-blur-md hidden flex items-center justify-center p-4">
+        <div class="relative max-w-lg w-full glass-panel p-6 sm:p-8 rounded-3xl rosegold-card-border overflow-y-auto max-h-[90vh]">
+            <div class="flex justify-between items-center mb-6 border-b border-rosegold-400/30 pb-3">
+                <h3 class="font-cairo text-xl font-bold text-rosegold-300 flex items-center gap-2">
+                    <i class="fas fa-sliders-h"></i>
+                    <span>تعديل بيانات الدعوة والصور</span>
+                </h3>
+                <button onclick="closeAdminModal()" class="text-rosegold-300 hover:text-pearl text-xl">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <form onsubmit="saveAdminCustomizations(event)" class="space-y-4 text-sm text-right">
+                <div>
+                    <label class="block text-rosegold-200 mb-1 font-semibold">اسم العروس والعريس</label>
+                    <input type="text" id="adminGroomBrideInput" required class="w-full bg-rosewine-950 border border-rosegold-400/40 rounded-xl px-3 py-2 text-pearl focus:outline-none focus:border-rosegold-400">
+                </div>
+
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-rosegold-200 mb-1 font-semibold">تاريخ الزفاف (YYYY-MM-DD)</label>
+                        <input type="date" id="adminDateInput" required class="w-full bg-rosewine-950 border border-rosegold-400/40 rounded-xl px-3 py-2 text-pearl focus:outline-none focus:border-rosegold-400">
+                    </div>
+                    <div>
+                        <label class="block text-rosegold-200 mb-1 font-semibold">اليوم والتاريخ المعروض</label>
+                        <input type="text" id="adminDayDateStringInput" required class="w-full bg-rosewine-950 border border-rosegold-400/40 rounded-xl px-3 py-2 text-pearl focus:outline-none focus:border-rosegold-400">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-rosegold-200 mb-1 font-semibold">موعد استقبال الضيوف</label>
+                    <input type="text" id="adminReceptionTimeInput" required class="w-full bg-rosewine-950 border border-rosegold-400/40 rounded-xl px-3 py-2 text-pearl focus:outline-none focus:border-rosegold-400">
+                </div>
+
+                <div>
+                    <label class="block text-rosegold-200 mb-1 font-semibold">الآية القرآنية أو عبارة الترحيب</label>
+                    <textarea id="adminVerseInput" rows="2" class="w-full bg-rosewine-950 border border-rosegold-400/40 rounded-xl px-3 py-2 text-pearl focus:outline-none focus:border-rosegold-400"></textarea>
+                </div>
+
+                <!-- Custom Photo Links Inputs -->
+                <div class="border-t border-rosegold-400/30 pt-3">
+                    <label class="block text-rosegold-200 mb-2 font-semibold">روابط صور المعرض الثلاثة (يمكنكِ وضع روابط صوركِ الخاصة هنا)</label>
+                    <input type="url" id="adminImg1" placeholder="رابط الصورة الأولى..." class="w-full bg-rosewine-950 border border-rosegold-400/40 rounded-xl px-3 py-2 text-xs text-pearl mb-2">
+                    <input type="url" id="adminImg2" placeholder="رابط الصورة الثانية..." class="w-full bg-rosewine-950 border border-rosegold-400/40 rounded-xl px-3 py-2 text-xs text-pearl mb-2">
+                    <input type="url" id="adminImg3" placeholder="رابط الصورة الثالثة..." class="w-full bg-rosewine-950 border border-rosegold-400/40 rounded-xl px-3 py-2 text-xs text-pearl">
+                </div>
+
+                <div class="pt-4 flex gap-3">
+                    <button type="submit" class="w-full rosegold-gradient-bg text-rosewine-950 font-bold py-3 rounded-xl shadow-lg">
+                        حفظ وتحديث الدعوة
+                    </button>
+                    <button type="button" onclick="resetAdminDefaults()" class="w-1/3 bg-rosewine-800 hover:bg-rosewine-700 border border-rosegold-400/30 text-pearl py-3 rounded-xl">
+                        استعادة الافتراضي
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- CUSTOM TOAST NOTIFICATION CONTAINER -->
+    <div id="toastNotification" class="fixed bottom-6 left-1/2 transform -translate-x-1/2 z-50 glass-panel border border-rosegold-400 px-6 py-3 rounded-2xl text-rosegold-300 text-sm font-semibold shadow-2xl transition-all duration-300 opacity-0 pointer-events-none flex items-center gap-2">
+        <i class="fas fa-check-circle text-rosegold-400"></i>
+        <span id="toastMessage">تم الحفظ بنجاح</span>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- JAVASCRIPT LOGIC & INTERACTION -->
+    <!-- ========================================== -->
+    <script>
+        /* ==========================================
+           1. DEFAULT STATE & LOCALSTORAGE PERSISTENCE
+           ========================================== */
+        const defaultWeddingData = {
+            groomBride: "آية & مصطفى",
+            weddingDateISO: "2026-10-24T20:00:00",
+            dayDateString: "السبت، 24 أكتوبر 2026",
+            receptionTime: "الساعة 08:00 مساءً",
+            verse: '"وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا لِّتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً"',
+            galleryImages: [
+                { url: "img/dress.jpg", caption: "إشراقة الفستان الوردي الأنيق للعروس آية" },
+                { url: "img/couple.jpg", caption: "لمسة المودة والوفاء بين آية ومصطفى" },
+                { url: "img/ring.jpg", caption: "خاتم الزفاف المبارك وعهد العمر" }
+            ]
+        };
+
+        function lsGet(k) { try { return JSON.parse(localStorage.getItem(k)); } catch (e) { return null; } }
+        function lsSet(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
+        let weddingData = lsGet("wedding_invitation_aya_mustafa_data") || defaultWeddingData;
+        // Always enforce the uploaded images as defaults
+        weddingData.galleryImages = defaultWeddingData.galleryImages;
+
+        /* ==========================================
+           2. WEB AUDIO API SYNTHESIZER
+           ========================================== */
+        let audioCtx = null;
+        let isAudioPlaying = false;
+        let melodyInterval = null;
+
+        function initAudio() {
+            if (!audioCtx) {
+                const AudioContext = window.AudioContext || window.webkitAudioContext;
+                audioCtx = new AudioContext();
+            }
+        }
+
+        function playTone(freq, duration = 1.2, type = 'sine') {
+            if (!audioCtx || audioCtx.state !== 'running') return;
+            try {
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                
+                osc.type = type;
+                osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+                
+                gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + duration);
+                
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                
+                osc.start();
+                osc.stop(audioCtx.currentTime + duration);
+            } catch(e) { console.log(e); }
+        }
+
+        function playChimeEffect() {
+            initAudio();
+            if (audioCtx && audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+            const notes = [587.33, 659.25, 880.00, 1046.50]; // D5, E5, A5, C6
+            notes.forEach((freq, idx) => {
+                setTimeout(() => playTone(freq, 1.6, 'sine'), idx * 130);
+            });
+        }
+
+        function toggleAudio() {
+            initAudio();
+            if (audioCtx && audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+
+            const icon = document.getElementById('musicIcon');
+            const text = document.getElementById('musicText');
+
+            if (isAudioPlaying) {
+                clearInterval(melodyInterval);
+                isAudioPlaying = false;
+                icon.innerHTML = '<i class="fas fa-volume-xmark"></i>';
+                text.innerText = "الموسيقى: متوقفة";
+            } else {
+                isAudioPlaying = true;
+                icon.innerHTML = '<i class="fas fa-music animate-pulse"></i>';
+                text.innerText = "الموسيقى: تعمل";
+
+                const arpeggioNotes = [293.66, 369.99, 440.00, 587.33, 440.00, 369.99]; // D Major Soft Romantic Loop
+                let step = 0;
+                
+                melodyInterval = setInterval(() => {
+                    if (isAudioPlaying) {
+                        playTone(arpeggioNotes[step % arpeggioNotes.length], 2.2, 'sine');
+                        step++;
+                    }
+                }, 850);
+            }
+        }
+
+        /* ==========================================
+           3. BACKGROUND FALLING ROSE PETALS CANVAS SYSTEM
+           ========================================== */
+        const canvas = document.getElementById('bgCanvas');
+        const ctx = canvas.getContext('2d');
+        let petals = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class Petal {
+            constructor() {
+                this.reset();
+            }
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = -20;
+                this.size = Math.random() * 8 + 6;
+                this.speedY = Math.random() * 0.8 + 0.4;
+                this.speedX = Math.sin(Math.random() * Math.PI) * 0.6;
+                this.angle = Math.random() * Math.PI * 2;
+                this.spin = (Math.random() - 0.5) * 0.02;
+                this.opacity = Math.random() * 0.6 + 0.3;
+                this.color = Math.random() > 0.4 ? 'rgba(232, 165, 152, ' : 'rgba(244, 194, 194, ';
+            }
+            update() {
+                this.y += this.speedY;
+                this.x += Math.sin(this.angle) * 0.5;
+                this.angle += 0.01;
+                this.spin += 0.001;
+
+                if (this.y > canvas.height + 20) {
+                    this.reset();
+                }
+            }
+            draw() {
+                ctx.save();
+                ctx.translate(this.x, this.y);
+                ctx.rotate(this.angle);
+
+                ctx.beginPath();
+                ctx.ellipse(0, 0, this.size, this.size / 2, 0, 0, Math.PI * 2);
+                ctx.fillStyle = `${this.color}${this.opacity})`;
+                ctx.shadowBlur = 6;
+                ctx.shadowColor = '#E8A598';
+                ctx.fill();
+
+                ctx.restore();
+            }
+        }
+
+        function initPetals() {
+            petals = [];
+            const count = Math.floor(window.innerWidth / 20);
+            for (let i = 0; i < count; i++) {
+                const petal = new Petal();
+                petal.y = Math.random() * canvas.height;
+                petals.push(petal);
+            }
+        }
+
+        function animatePetals() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            petals.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(animatePetals);
+        }
+
+        initPetals();
+        animatePetals();
+
+        /* ==========================================
+           4. ENVELOPE OPENING ANIMATION & REVEAL
+           ========================================== */
+        function openInvitationEnvelope() {
+            const envelope = document.getElementById('envelope');
+            const overlay = document.getElementById('envelopeOverlay');
+            const mainContent = document.getElementById('mainContent');
+
+            playChimeEffect();
+            envelope.classList.add('open');
+
+            setTimeout(() => {
+                overlay.classList.add('opacity-0');
+                mainContent.classList.remove('opacity-0');
+                
+                setTimeout(() => {
+                    overlay.style.display = 'none';
+                    if (!isAudioPlaying) toggleAudio();
+                }, 1000);
+            }, 800);
+        }
+
+        /* ==========================================
+           5. DOM DATA BINDING & GALLERY RENDERING
+           ========================================== */
+        function applyDataToDOM() {
+            document.getElementById('envelopeGroomBride').innerText = weddingData.groomBride;
+            document.getElementById('displayGroomBride').innerText = weddingData.groomBride;
+            document.getElementById('footerBrideGroomNames').innerText = `${weddingData.groomBride} - 2026`;
+            document.getElementById('displayDayDate').innerText = weddingData.dayDateString;
+            document.getElementById('displayReceptionTime').innerText = `موعد الاستقبال: ${weddingData.receptionTime}`;
+            document.getElementById('displayCardTime').innerText = `بداية استقبال الضيوف: ${weddingData.receptionTime}`;
+            document.getElementById('displayVerse').innerText = weddingData.verse;
+            document.getElementById('ticketCoupleNames').innerText = weddingData.groomBride;
+
+            renderGallery();
+        }
+
+        function renderGallery() {
+            const container = document.getElementById('galleryContainer');
+            container.innerHTML = '';
+
+            const images = weddingData.galleryImages || defaultWeddingData.galleryImages;
+
+            images.forEach((imgObj, idx) => {
+                const itemDiv = document.createElement('div');
+                itemDiv.className = "group relative rounded-2xl overflow-hidden rosegold-card-border cursor-pointer aspect-square";
+                itemDiv.onclick = () => openLightbox(imgObj.url, imgObj.caption);
+                itemDiv.innerHTML = `
+                    <img src="${imgObj.url}" alt="${imgObj.caption}" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                    <div class="absolute inset-0 bg-rosewine-950/60 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-rosegold-300 font-semibold text-sm p-2 text-center">
+                        <i class="fas fa-search-plus text-2xl"></i>
+                    </div>
+                `;
+                container.appendChild(itemDiv);
+            });
+        }
+
+        /* ==========================================
+           6. LIVE COUNTDOWN TIMER (24 Oct 2026 Target)
+           ========================================== */
+        function updateCountdown() {
+            const targetDate = new Date(weddingData.weddingDateISO).getTime();
+            const now = new Date().getTime();
+            const difference = targetDate - now;
+
+            if (difference > 0) {
+                const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+                document.getElementById('timerDays').innerText = String(days).padStart(2, '0');
+                document.getElementById('timerHours').innerText = String(hours).padStart(2, '0');
+                document.getElementById('timerMinutes').innerText = String(minutes).padStart(2, '0');
+                document.getElementById('timerSeconds').innerText = String(seconds).padStart(2, '0');
+            } else {
+                document.getElementById('timerDays').innerText = "00";
+                document.getElementById('timerHours').innerText = "00";
+                document.getElementById('timerMinutes').innerText = "00";
+                document.getElementById('timerSeconds').innerText = "00";
+            }
+        }
+        setInterval(updateCountdown, 1000);
+
+        /* ==========================================
+           7. RSVP & ENTRANCE TICKET GENERATION
+           ========================================== */
+        function handleRSVPSubmit(event) {
+            event.preventDefault();
+
+            const name = document.getElementById('guestNameInput').value.trim();
+            const attendance = document.getElementById('attendanceInput').value;
+            const count = document.getElementById('guestCountInput').value;
+
+            if (!name) return;
+
+            const ticketCode = 'WED-' + Math.floor(10000 + Math.random() * 90000);
+
+            document.getElementById('ticketGuestName').innerText = name;
+            document.getElementById('ticketStatus').innerText = attendance;
+            document.getElementById('ticketGuestCount').innerText = count;
+            document.getElementById('ticketCode').innerText = `#${ticketCode}`;
+
+            const qrBox = document.getElementById('ticketQR');
+            qrBox.innerHTML = '';
+            try {
+                new QRCode(qrBox, { text: `AYA-MUSTAFA|${ticketCode}|${count}`, width: 112, height: 112, colorDark: "#2E1222", colorLight: "#ffffff" });
+            } catch (e) { console.log(e); }
+
+            document.getElementById('ticketModal').classList.remove('hidden');
+            showToast("تم استخراج بطاقة الدخول الخاصة بك.");
+        }
+
+        function closeTicketModal() {
+            document.getElementById('ticketModal').classList.add('hidden');
+        }
+
+        /* ==========================================
+           9. LIGHTBOX PHOTO MODAL
+           ========================================== */
+        function openLightbox(imgSrc, caption) {
+            document.getElementById('lightboxImage').src = imgSrc;
+            document.getElementById('lightboxCaption').innerText = caption;
+            document.getElementById('lightboxModal').classList.remove('hidden');
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightboxModal').classList.add('hidden');
+        }
+
+        /* ==========================================
+           10. LIVE CUSTOMIZATION / ADMIN PANEL LOGIC
+           ========================================== */
+        function openAdminModal() {
+            document.getElementById('adminGroomBrideInput').value = weddingData.groomBride;
+            document.getElementById('adminDateInput').value = weddingData.weddingDateISO.split('T')[0];
+            document.getElementById('adminDayDateStringInput').value = weddingData.dayDateString;
+            document.getElementById('adminReceptionTimeInput').value = weddingData.receptionTime;
+            document.getElementById('adminVerseInput').value = weddingData.verse;
+
+            if (weddingData.galleryImages && weddingData.galleryImages.length >= 3) {
+                document.getElementById('adminImg1').value = weddingData.galleryImages[0].url || '';
+                document.getElementById('adminImg2').value = weddingData.galleryImages[1].url || '';
+                document.getElementById('adminImg3').value = weddingData.galleryImages[2].url || '';
+            }
+
+            document.getElementById('adminModal').classList.remove('hidden');
+        }
+
+        function closeAdminModal() {
+            document.getElementById('adminModal').classList.add('hidden');
+        }
+
+        function saveAdminCustomizations(event) {
+            event.preventDefault();
+
+            weddingData.groomBride = document.getElementById('adminGroomBrideInput').value.trim();
+            const dateVal = document.getElementById('adminDateInput').value;
+            weddingData.weddingDateISO = `${dateVal}T20:00:00`;
+            weddingData.dayDateString = document.getElementById('adminDayDateStringInput').value.trim();
+            weddingData.receptionTime = document.getElementById('adminReceptionTimeInput').value.trim();
+            weddingData.verse = document.getElementById('adminVerseInput').value.trim();
+
+            const url1 = document.getElementById('adminImg1').value.trim();
+            const url2 = document.getElementById('adminImg2').value.trim();
+            const url3 = document.getElementById('adminImg3').value.trim();
+
+            if (url1 || url2 || url3) {
+                weddingData.galleryImages = [
+                    { url: url1 || defaultWeddingData.galleryImages[0].url, caption: "صورة خاصة بـ آية ومصطفى" },
+                    { url: url2 || defaultWeddingData.galleryImages[1].url, caption: "صورة خاصة بـ آية ومصطفى" },
+                    { url: url3 || defaultWeddingData.galleryImages[2].url, caption: "صورة خاصة بـ آية ومصطفى" }
+                ];
+            }
+
+            lsSet("wedding_invitation_aya_mustafa_data", weddingData);
+            
+            applyDataToDOM();
+            updateCountdown();
+            closeAdminModal();
+            showToast("تم تحديث كافة بيانات الدعوة والصور بنجاح!");
+        }
+
+        function resetAdminDefaults() {
+            weddingData = { ...defaultWeddingData };
+            try { localStorage.removeItem("wedding_invitation_aya_mustafa_data"); } catch (e) {}
+            applyDataToDOM();
+            updateCountdown();
+            closeAdminModal();
+            showToast("تمت استعادة البيانات الافتراضية للدعوة.");
+        }
+
+        /* ==========================================
+           11. TOAST NOTIFICATION UTILITY
+           ========================================== */
+        function showToast(message) {
+            const toast = document.getElementById('toastNotification');
+            document.getElementById('toastMessage').innerText = message;
+
+            toast.classList.remove('opacity-0', 'pointer-events-none');
+            
+            setTimeout(() => {
+                toast.classList.add('opacity-0', 'pointer-events-none');
+            }, 3500);
+        }
+
+        /* Initialize on Load */
+        window.onload = function() {
+            applyDataToDOM();
+            updateCountdown();
+        }
+    </script>
+</div>
+</body>
+</html>
